@@ -26,6 +26,11 @@ With some deeper checking we actually found that CDS stood for County District S
 
 We concatinated the three columns in fprm above as a varchar and renamed the column so that it matched the cds code column in the schools and satscores table. We set the primary key for each of the three tables to this value, since it satisfied the cardinality tests we ran against it.
 
+We checked for the distinct count of the cds column for each table and it matched the total count of the rows. This meant for the three tables we were able to set cds column as the primary key.
+
+
+### Exploring the data set
+
 
 
 

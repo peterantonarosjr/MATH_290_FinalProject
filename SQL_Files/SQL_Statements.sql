@@ -97,14 +97,28 @@ create table postgres.public.frpm (
 ,"2013-14 CALPADS Fall 1 Certification Status" smallint
 );
 
-/*Fixng fprm table to have 1 concat column for CDS*/
+/*Checking if our idea of column concat works*/
 select ("County Code" || "District Code" || "School Code") as cds
 from postgres.public.frpm
 
+/*Fixng fprm table to have 1 concat column for CDS*/
 update postgres.public.frpm set "CDSCode" = ("County Code" || "District Code" || "School Code")
+/*Fixing column names*/
 
-/*Ensuring cds code columns are named same across tables*/
+/*Changing column name to match that of the other two tables*/
 alter table postgres.public.sat_scores
 rename column "cds" to "CDSCode"
 
-/*Set primary keys*/
+/*Investigating for primary key*/
+select count (*) from postgres.public.frpm; -- 10,395
+select count (*) from postgres.public.sat_scores; -- 2331
+select count (*) from postgres.public.schools; --- 5000
+
+select count (distinct "CDSCode") from postgres.public.frpm; -- 10,393
+select count (distinct "CDSCode") from postgres.public.sat_scores; -- 2,331
+select count (distinct "CDSCode") from postgres.public.schools; -- 5000
+
+/*Adding primary keys to the table*/
+ALTER TABLE postgres.public.frpm ADD PRIMARY KEY ("CDSCode");
+ALTER TABLE postgres.public.sat_scores ADD PRIMARY KEY ("CDSCode");
+ALTER TABLE postgres.public.schools ADD PRIMARY KEY ("CDSCode");
