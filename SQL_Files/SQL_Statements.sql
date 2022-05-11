@@ -1,6 +1,6 @@
-/*Creating Tables*/
-create table schools.public.schools (
- "CDSCode" varchar 
+/*Creating the tables*/
+create table postgres.public.schools (
+"CDSCode" varchar
 ,"NCESDist" varchar
 ,"NCESSchool" varchar
 ,"StatusType" varchar
@@ -37,8 +37,8 @@ create table schools.public.schools (
 ,"GSserved" varchar
 ,"Virtual" varchar
 ,"Magnet" smallint
-,"Latitude" double
-,"Longitude" double
+,"Latitude" double precision
+,"Longitude" double precision
 ,"AdmFName1" varchar
 ,"AdmLName1" varchar
 ,"AdmEmail1" varchar
@@ -50,24 +50,23 @@ create table schools.public.schools (
 ,"AdmEmail3" varchar
 ,"LastUpdate" date
 );
-
-create table schools.public.sat_scores (
-"cds" varchar, 
-"rtype" varchar, 
-"sname" varchar, 
-"dname" varchar, 
+create table postgres.public.sat_scores (
+"cds" varchar,
+"rtype" varchar,
+"sname" varchar,
+"dname" varchar,
 "cname" varchar,
-"enroll12" int, 
-"NumTstTakr" int, 
-"AvgScrRead" int, 
+"enroll12" int,
+"NumTstTakr" int,
+"AvgScrRead" int,
 "AvgScrMath" int,
-"AvgScrWrite" int, 
-"NumGE1500" int, 
-"PctGE1500" double
+"AvgScrWrite" int,
+"NumGE1500" int,
+"PctGE1500" double precision
 );
 
-create table schools.public.frpm (
- "CDSCode" varchar 
+create table postgres.public.frpm (
+ "CDSCode" varchar
 ,"Academic Year" varchar
 ,"County Code" varchar
 ,"District Code" int
@@ -85,15 +84,27 @@ create table schools.public.frpm (
 ,"IRC" smallint
 ,"Low Grade" varchar
 ,"High Grade" varchar
-,"Enrollment (K-12)" double
-,"Free Meal Count (K-12)" double
-,"Percent (%) Eligible Free (K-12)" double
-,"FRPM Count (K-12)" double
-,"Percent (%) Eligible FRPM (K-12)" double
-,"Enrollment (Ages 5-17)" double
-,"Free Meal Count (Ages 5-17)" double
-,"Percent (%) Eligible Free (Ages 5-17)" double
-,"FRPM Count (Ages 5-17)" double
-,"Percent (%) Eligible FRPM (Ages 5-17)" double
+,"Enrollment (K-12)" double precision
+,"Free Meal Count (K-12)" double precision
+,"Percent (%) Eligible Free (K-12)" double precision
+,"FRPM Count (K-12)" double precision
+,"Percent (%) Eligible FRPM (K-12)" double precision
+,"Enrollment (Ages 5-17)" double precision
+,"Free Meal Count (Ages 5-17)" double precision
+,"Percent (%) Eligible Free (Ages 5-17)" double precision
+,"FRPM Count (Ages 5-17)" double precision
+,"Percent (%) Eligible FRPM (Ages 5-17)" double precision
 ,"2013-14 CALPADS Fall 1 Certification Status" smallint
 );
+
+/*Fixng fprm table to have 1 concat column for CDS*/
+select ("County Code" || "District Code" || "School Code") as cds
+from postgres.public.frpm
+
+update postgres.public.frpm set "CDSCode" = ("County Code" || "District Code" || "School Code")
+
+/*Ensuring cds code columns are named same across tables*/
+alter table postgres.public.sat_scores
+rename column "cds" to "CDSCode"
+
+/*Set primary keys*/
