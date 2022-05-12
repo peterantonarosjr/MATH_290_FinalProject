@@ -1,7 +1,15 @@
-# MATH_290_FinalProject
+# Analyzing California Schools Data
+# MATH_290_Final_Project
 
-## Title
-Final project for Math 290
+## The Group
+- [Peter Antonaros](https://github.com/peterantonarosjr/QC_MATH_342)
+- [Kennly Weerasinghe](https://github.com/wskennly)
+- [Amir ElTabakh](https://github.com/sfnxboy)
+
+## Data Source
+
+[Information about the FRPM (Student Poverty) Data](https://www.cde.ca.gov/ds/ad/filesspfrpm.asp)
+
 
 ## Summary
 Explore a data set, performing hypothesis testing
@@ -11,6 +19,6 @@ Explore a data set, performing hypothesis testing
     * Contains data set we will be using for postgres
 2. SQL_Files
     * SQL scripts we run against our postgres tables
-3. Visualizations
+3. [Visualizations](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Visualizations)
     * Visuals that aid in confirming/refuting our hypothesis tests
 
