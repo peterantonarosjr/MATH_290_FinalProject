@@ -31,6 +31,12 @@ We checked for the distinct count of the cds column for each table and it matche
 
 ### Exploring the data set
 
-
+Calculated column stats on all integer values amongst the three tables including: count, min, max, mean, skewness, and kurtosis
+At this preliminary stage of the project these are the 5 insights from the data:
+ 1- There appears to be correlations between % of eligible students for free lunch and those that receive free lunch
+ 2- There appears to be correlations between % of eligible students for reduced lunch and those that receive reduced lunch
+ 3- Free Meal Count (K-12) and Free Meal Count (Ages 5-17) are slightly different, which is a bit unexpected since they should be 1:1, which could mean that there are students that are in K-12 but are not in the 5-17 age range
+ 4- The NumTstTakr is not 1:1 with the amount of students that receive free or reduced lunch, this could be due to SAT test takers generally being in the 11th and or 12th grade. 
+ 5- Students eligible as a percent to receive free or reduced lunch is higher than the actual count of those that receive free or reduced lunch.
 
 
