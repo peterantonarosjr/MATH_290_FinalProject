@@ -2,7 +2,7 @@
 # MATH_290_Final_Project
 
 ## The Group
-- [Peter Antonaros](https://github.com/peterantonarosjr/QC_MATH_342)
+- [Peter Antonaros](https://github.com/peterantonarosjr)
 - [Kennly Weerasinghe](https://github.com/wskennly)
 - [Amir ElTabakh](https://github.com/sfnxboy)
 
