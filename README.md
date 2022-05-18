@@ -10,11 +10,15 @@
 
 [Information about the FRPM (Student Poverty) Data](https://www.cde.ca.gov/ds/ad/filesspfrpm.asp)
 
-[US Census Data 2014 - California](https://data.census.gov/cedsci/table?q=california%20income&g=0400000US06%248600000&tid=ACSST5Y2020.S1901)
+[US Census Data - California](https://data.census.gov/cedsci/table?q=california%20income&g=0400000US06%248600000&tid=ACSST5Y2020.S1901)
 
 
-## Summary
-Explore a data set, performing hypothesis testing
+## Game Plan
+- Data Exploration
+- Data Cleaning
+- Joins
+- Hypothesis Testing
+
 
 ## Table of Contents
 1. [Dataset](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Dataset)
@@ -23,4 +27,4 @@ Explore a data set, performing hypothesis testing
     * SQL scripts we run against our postgres tables
 3. [Visualizations](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Visualizations)
     * Visuals that aid in confirming/refuting our hypothesis tests
-
+    * [Power BI Dashboard](https://app.powerbi.com/links/sbb0Gw0Gf5?ctid=472b8dad-8577-4a7a-85f5-d91664ae7ee0&pbi_source=linkShare)
