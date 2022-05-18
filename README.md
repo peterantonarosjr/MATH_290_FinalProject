@@ -1,7 +1,7 @@
 # Analyzing California Schools Data
 # MATH_290_Final_Project
 
-## The Group
+## The Team
 - [Peter Antonaros](https://github.com/peterantonarosjr)
 - [Kennly Weerasinghe](https://github.com/wskennly)
 - [Amir ElTabakh](https://github.com/sfnxboy)
