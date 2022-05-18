@@ -25,6 +25,8 @@
     * Contains data set we will be using for postgres
 2. [SQL_Files](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/SQL_Files)
     * SQL scripts we run against our postgres tables
-3. [Visualizations](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Visualizations)
+3. [Python Files](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Python_Files)
+    * [Data Analysis in Python](https://github.com/peterantonarosjr/MATH_290_FinalProject/blob/main/Python_Files/Data%20Analysis%20of%20California%20Schools%20Data.ipynb). The code is written in both Python and SQL.
+5. [Visualizations](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Visualizations)
     * Visuals that aid in confirming/refuting our hypothesis tests
     * [Power BI Dashboard](https://app.powerbi.com/links/sbb0Gw0Gf5?ctid=472b8dad-8577-4a7a-85f5-d91664ae7ee0&pbi_source=linkShare)
