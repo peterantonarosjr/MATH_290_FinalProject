@@ -10,7 +10,7 @@
 
 [Information about the FRPM (Student Poverty) Data](https://www.cde.ca.gov/ds/ad/filesspfrpm.asp)
 
-[US Census Data 2014 - California](ACSST5Y2014.S1901_metadata)
+[US Census Data 2014 - California](https://data.census.gov/cedsci/table?q=california%20income&g=0400000US06%248600000&tid=ACSST5Y2020.S1901)
 
 
 ## Summary
