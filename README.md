@@ -24,7 +24,7 @@
 1. [Dataset](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Dataset)
     * Contains data set we will be using for postgres
 2. [SQL_Files](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/SQL_Files)
-    * SQL scripts we run against our postgres tables
+    * [SQL scripts](https://github.com/peterantonarosjr/MATH_290_FinalProject/blob/main/SQL_Files/SQL_Statements.sql) we run against our postgres tables
 3. [Python Files](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Python_Files)
     * [Data Analysis in Python](https://github.com/peterantonarosjr/MATH_290_FinalProject/blob/main/Python_Files/Data%20Analysis%20of%20California%20Schools%20Data.ipynb). The code is written in both Python and SQL.
 5. [Visualizations](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Visualizations)
