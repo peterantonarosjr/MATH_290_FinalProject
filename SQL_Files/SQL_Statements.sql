@@ -106,11 +106,13 @@ update fproject.public.frpm set "CDSCode" = ("County Code" || "District Code" ||
 
 /*Changing column name to match that of the other two tables*/
 alter table fproject.public.sat_scores
-rename column "cds" tocreate table postgres.public.calizipincome (
+rename column "cds" to "CDSCode"
+
+create table fproject.public.calizipincome (
 "Zip" int,
 "median_income" int,
 "mean_income" int
-); "CDSCode"
+);
 
 /*Investigating for primary key*/
 select count (*) from fproject.public.frpm; -- 10,393
@@ -317,7 +319,7 @@ select stats_agg("Percent (%) Eligible FRPM (K-12)") from fproject.public.frpm f
 select stats_agg("Enrollment (Ages 5-17)") from fproject.public.frpm f
 --- count: 10,372  min: 1   max: 5,271  mean: 585.310  variance: 277,101.781  skewness: 2.206  kurtosis: 10.457
 
-select stats_agg("Free Meal Count (Ages 5-17)") from fprojeselect stats_agg("AvgScrRead") from fproject.public.sat_scores ss ct.public.frpm f
+select stats_agg("Free Meal Count (Ages 5-17)") from fprojeselect stats_agg("AvgScrRead") from fproject.public.sat_scores
 --- count: 10,172  min: 1   max: 3864  mean: 298.161  variance: 92,498.479  skewness: 2.196  kurtosis: 11.488
 
 select stats_agg("Percent (%) Eligible Free (Ages 5-17)") from fproject.public.frpm f
@@ -374,6 +376,7 @@ create table fproject.public.calizipincome (
 "median_income" int,
 "mean_income" int
 );
+
 alter table fproject.public.calizipincome alter column "Zip" type varchar using "Zip"::varchar; -- Now varchar instead of int
 
 --Joining the tables two methods
@@ -391,7 +394,7 @@ on s."CDSCode" = ss."CDSCode" --4844
 
 --Method 2
 --Sat_Scores is parent table and then left join frpm on cdscode, left join schools on cdscode, inner join calizipincome on zip
-select count(*)
+select *
 from fproject.public.sat_scores ss
 left join fproject.public.frpm f
 on ss."CDSCode" = f."CDSCode"
@@ -402,9 +405,9 @@ on s."Zip" = c."Zip" --359
 
 --Create new final table
 create table fmerge as
-select f."CDSCode", f."County Name" , f."District Name", f."School Name", f."District Type",
+select s."CDSCode", ss."cname" , ss."dname", ss."sname", f."District Type",
 f."School Type", f."Low Grade", f."High Grade", f."Enrollment (K-12)", f."Free Meal Count (K-12)", f."Percent (%) Eligible Free (K-12)",
-f."FRPM Count (K-12)", f."Percent (%) Eligible FRPM (K-12)", ss."AvgScrRead", ss."AvgScrMath", ss."AvgScrWrite"
+f."FRPM Count (K-12)", f."Percent (%) Eligible FRPM (K-12)", ss."AvgScrRead", ss."AvgScrMath", ss."AvgScrWrite", s."Zip"
 from fproject.public.sat_scores ss
 left join fproject.public.frpm f
 on ss."CDSCode" = f."CDSCode"
@@ -414,6 +417,7 @@ inner join fproject.public.calizipincome c
 on s."Zip" = c."Zip"
 
 select count(*) from fproject.public.fmerge;
+select * from fmerge
 
 --
 select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible Free (K-12)"  is null -- 220
@@ -434,3 +438,4 @@ update fproject.public.fmerge f set "FullLunch" = 1-"Percent (%) Eligible FRPM (
 
 
 select coalesce ("FreeLunch",0) + coalesce ("ReducedLunch",0) + coalesce("FullLunch",0) from fmerge --check %'s add to 1
+
