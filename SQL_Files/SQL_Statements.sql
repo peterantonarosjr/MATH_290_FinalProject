@@ -130,43 +130,34 @@ ALTER TABLE fproject.public.sat_scores ADD PRIMARY KEY ("CDSCode");
 ALTER TABLE fproject.public.schools ADD PRIMARY KEY ("CDSCode");
 
 /*Checking cardinality of the relationship between tables*/
-select count(*) from (select "CDSCode" from fproject.public.frpm except select "CDSCode" from fproject.public.sat_scores) as result;
---- 9,293
-select count(*) from (select "CDSCode" from fproject.public.frpm except select "CDSCode" from fproject.public.schools) as result;
---- 9,097
+select count(*) from (select "CDSCode" from fproject.public.frpm except select "CDSCode" from fproject.public.sat_scores) as result;-- 9,293
+select count(*) from (select "CDSCode" from fproject.public.frpm except select "CDSCode" from fproject.public.schools) as result;-- 9,097
 
 
-select count(*) from (select "CDSCode" from fproject.public.sat_scores except select "CDSCode" from fproject.public.schools) as result;
---- 1,675
-select count(*) from (select "CDSCode" from fproject.public.sat_scores except select "CDSCode" from fproject.public.frpm) as result;
----1,231
+select count(*) from (select "CDSCode" from fproject.public.sat_scores except select "CDSCode" from fproject.public.schools) as result;-- 1,675
+select count(*) from (select "CDSCode" from fproject.public.sat_scores except select "CDSCode" from fproject.public.frpm) as result;--1,231
 
 
-select count(*) from (select "CDSCode" from fproject.public.schools except select "CDSCode" from fproject.public.frpm) as result;
----3,704
-select count(*) from (select "CDSCode" from fproject.public.schools except select "CDSCode" from fproject.public.sat_scores) as result;
----4,344
+select count(*) from (select "CDSCode" from fproject.public.schools except select "CDSCode" from fproject.public.frpm) as result;--3,704
+select count(*) from (select "CDSCode" from fproject.public.schools except select "CDSCode" from fproject.public.sat_scores) as result;--4,344
 
 select count(*) from(
 	select "CDSCode" from fproject.public.frpm
 	intersect
 	select "CDSCode" from fproject.public.schools
-) as CDSCodetIntersec;
----1,296
+) as CDSCodetIntersec;--1,296
 
 select count(*) from(
 	select "CDSCode" from fproject.public.frpm
 	intersect
 	select "CDSCode" from fproject.public.sat_scores
-) as CDSCodetIntersec;
----1,100
+) as CDSCodetIntersec;--1,100
 
 select count(*) from(
 	select "CDSCode" from fproject.public.sat_scores
 	intersect
 	select "CDSCode" from fproject.public.schools
-) as CDSCodetIntersec;
----656
+) as CDSCodetIntersec;--656
 
 
 -- Copyright (c) 2018 Chucky Ellison <cme at freefour.com>
@@ -379,20 +370,6 @@ create table fproject.public.calizipincome (
 
 alter table fproject.public.calizipincome alter column "Zip" type varchar using "Zip"::varchar; -- Now varchar instead of int
 
---Joining the tables two methods
-
---Method 1
---Schools is parent table and then inner join calizipincome on zip, left join frpm cdscode, and left join sat scores on cdscode
-select count(*)
-from fproject.public.schools s
-inner join fproject.public.calizipincome c
-on s."Zip" = c."Zip"
-left join fproject.public.frpm f
-on s."CDSCode" = f."CDSCode"
-left join fproject.public.sat_scores ss
-on s."CDSCode" = ss."CDSCode" --4844
-
---Method 2
 --Sat_Scores is parent table and then left join frpm on cdscode, left join schools on cdscode, inner join calizipincome on zip
 select *
 from fproject.public.sat_scores ss
@@ -420,17 +397,16 @@ select count(*) from fproject.public.fmerge;
 select * from fmerge
 
 --
-select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible Free (K-12)"  is null -- 220
-select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible FRPM (K-12)"  is null -- 220
+select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible Free (K-12)"  is null
+select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible FRPM (K-12)"  is null
 delete from fproject.public.fmerge f where "Percent (%) Eligible Free (K-12)" is null
-select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible Free (K-12)"  is null -- 0
-select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible FRPM (K-12)"  is null -- 0
+select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible Free (K-12)"  is null
+select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible FRPM (K-12)"  is null
 
 --Add new columns for information we want to compute from the old ones
 alter table fproject.public.fmerge add "FreeLunch" float
 alter table fproject.public.fmerge add "ReducedLunch" float
 alter table fproject.public.fmerge add "FullLunch" float
-
 
 update fproject.public.fmerge f set "FreeLunch" = "Percent (%) Eligible Free (K-12)"
 update fproject.public.fmerge f set "ReducedLunch" = "Percent (%) Eligible FRPM (K-12)" - "Percent (%) Eligible Free (K-12)"
