@@ -106,7 +106,11 @@ update fproject.public.frpm set "CDSCode" = ("County Code" || "District Code" ||
 
 /*Changing column name to match that of the other two tables*/
 alter table fproject.public.sat_scores
-rename column "cds" to "CDSCode"
+rename column "cds" tocreate table postgres.public.calizipincome (
+"Zip" int,
+"median_income" int,
+"mean_income" int
+); "CDSCode"
 
 /*Investigating for primary key*/
 select count (*) from fproject.public.frpm; -- 10,393
@@ -364,31 +368,69 @@ select * from fproject.public.schools
 update fproject.public.schools s SET "Zip" = substring("Zip",1,5)
 select "Zip" from fproject.public.schools --4096
 
+
+create table fproject.public.calizipincome (
+"Zip" int,
+"median_income" int,
+"mean_income" int
+);
 alter table fproject.public.calizipincome alter column "Zip" type varchar using "Zip"::varchar; -- Now varchar instead of int
 
+--Joining the tables two methods
+
+--Method 1
 --Schools is parent table and then inner join calizipincome on zip, left join frpm cdscode, and left join sat scores on cdscode
+select count(*)
+from fproject.public.schools s
+inner join fproject.public.calizipincome c
+on s."Zip" = c."Zip"
+left join fproject.public.frpm f
+on s."CDSCode" = f."CDSCode"
+left join fproject.public.sat_scores ss
+on s."CDSCode" = ss."CDSCode" --4844
+
+--Method 2
+--Sat_Scores is parent table and then left join frpm on cdscode, left join schools on cdscode, inner join calizipincome on zip
+select count(*)
+from fproject.public.sat_scores ss
+left join fproject.public.frpm f
+on ss."CDSCode" = f."CDSCode"
+left join fproject.public.schools s
+on ss."CDSCode" = s."CDSCode"
+inner join fproject.public.calizipincome c
+on s."Zip" = c."Zip" --359
+
+--Create new final table
+create table fmerge as
+select f."CDSCode", f."County Name" , f."District Name", f."School Name", f."District Type",
+f."School Type", f."Low Grade", f."High Grade", f."Enrollment (K-12)", f."Free Meal Count (K-12)", f."Percent (%) Eligible Free (K-12)",
+f."FRPM Count (K-12)", f."Percent (%) Eligible FRPM (K-12)", ss."AvgScrRead", ss."AvgScrMath", ss."AvgScrWrite"
+from fproject.public.sat_scores ss
+left join fproject.public.frpm f
+on ss."CDSCode" = f."CDSCode"
+left join fproject.public.schools s
+on ss."CDSCode" = s."CDSCode"
+inner join fproject.public.calizipincome c
+on s."Zip" = c."Zip"
+
+select count(*) from fproject.public.fmerge;
+
+--
+select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible Free (K-12)"  is null -- 220
+select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible FRPM (K-12)"  is null -- 220
+delete from fproject.public.fmerge f where "Percent (%) Eligible Free (K-12)" is null
+select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible Free (K-12)"  is null -- 0
+select count(*) from fproject.public.fmerge f  where "Percent (%) Eligible FRPM (K-12)"  is null -- 0
+
+--Add new columns for information we want to compute from the old ones
+alter table fproject.public.fmerge add "FreeLunch" float
+alter table fproject.public.fmerge add "ReducedLunch" float
+alter table fproject.public.fmerge add "FullLunch" float
 
 
+update fproject.public.fmerge f set "FreeLunch" = "Percent (%) Eligible Free (K-12)"
+update fproject.public.fmerge f set "ReducedLunch" = "Percent (%) Eligible FRPM (K-12)" - "Percent (%) Eligible Free (K-12)"
+update fproject.public.fmerge f set "FullLunch" = 1-"Percent (%) Eligible FRPM (K-12)"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select coalesce ("FreeLunch",0) + coalesce ("ReducedLunch",0) + coalesce("FullLunch",0) from fmerge --check %'s add to 1
