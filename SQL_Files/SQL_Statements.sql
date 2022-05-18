@@ -353,8 +353,42 @@ select count(*) from fproject.public.sat_scores ss  where "AvgScrRead" is null -
 select count(*) from fproject.public.sat_scores ss  where "AvgScrWrite" is null --0
 
 
-select count (*) from postgres.public.frpm; -- 10,393 to 1732
-select count (*) from postgres.public.sat_scores; -- 2331 to 1254
+select count (*) from fproject.public.frpm; -- 10,393 to 1732
+select count (*) from fproject.public.sat_scores; -- 2331 to 1254
+
+
+delete from fproject.public.schools where "Zip" like ''--94
+select substring("Zip",1,5) from fproject.public.schools s; --4906
+select * from fproject.public.schools
+
+update fproject.public.schools s SET "Zip" = substring("Zip",1,5)
+select "Zip" from fproject.public.schools --4096
+
+alter table fproject.public.calizipincome alter column "Zip" type varchar using "Zip"::varchar; -- Now varchar instead of int
+
+--Schools is parent table and then inner join calizipincome on zip, left join frpm cdscode, and left join sat scores on cdscode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
