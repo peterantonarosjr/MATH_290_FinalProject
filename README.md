@@ -22,7 +22,7 @@ Documentation:
 - Data Cleaning
 - Joins
 - Hypothesis Testing
-
+- Story Telling and Visualization
 
 ## Table of Contents
 1. [Dataset](https://github.com/peterantonarosjr/MATH_290_FinalProject/tree/main/Dataset)
