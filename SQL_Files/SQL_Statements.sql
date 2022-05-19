@@ -58,7 +58,6 @@ create table fproject.public.calizipincome (
 "mean_income" int
 );
 
-
 /*Creating the sat_scores table with proper columns and datatypes*/
 create table fproject.public.sat_scores (
 "cds" varchar,    		--primary key
@@ -74,6 +73,7 @@ create table fproject.public.sat_scores (
 "NumGE1500" int,
 "PctGE1500" double precision
 );
+
 /*Creating the frpm table with proper columns and datatypes*/
 create table fproject.public.frpm (
  "CDSCode" varchar              --- primary key
@@ -106,14 +106,6 @@ create table fproject.public.frpm (
 ,"Percent (%) Eligible FRPM (Ages 5-17)" double precision
 ,"2013-14 CALPADS Fall 1 Certification Status" smallint
 );
-
-
-
-
-
-
-
-
 
 /*
 We want to combine the columns county, district, and school code
@@ -453,7 +445,8 @@ alter table fproject.public.calizipincome alter column "Zip" type varchar using 
 Joining the tables to see the resulting data that we have
 
 Sat_Scores is parent table and then left join frpm on cdscode,
-left join schools on cdscode, inner join calizipincome on zip*/
+left join schools on cdscode, inner join calizipincome on zip
+*/
 select *
 from fproject.public.sat_scores ss --1254
 left join fproject.public.frpm f
