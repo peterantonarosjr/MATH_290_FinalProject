@@ -1,6 +1,6 @@
 /*Creating the schools table with proper columns and datatypes*/
 create table fproject.public.schools (
-"CDSCode" varchar
+"CDSCode" varchar			--- primary key
 ,"NCESDist" varchar
 ,"NCESSchool" varchar
 ,"StatusType" varchar
@@ -10,7 +10,7 @@ create table fproject.public.schools (
 ,"Street" varchar
 ,"StreetAbr" varchar
 ,"City" varchar
-,"Zip" varchar
+,"Zip" varchar				--- foreign key for california income zip code data
 ,"State" varchar
 ,"MailStreet" varchar
 ,"MailStrAbr" varchar
@@ -50,9 +50,18 @@ create table fproject.public.schools (
 ,"AdmEmail3" varchar
 ,"LastUpdate" date
 );
+
+/*Creating the calizipincome table which we the populate with the census data*/
+create table fproject.public.calizipincome (
+"Zip" int,			--primary key
+"median_income" int,
+"mean_income" int
+);
+
+
 /*Creating the sat_scores table with proper columns and datatypes*/
 create table fproject.public.sat_scores (
-"cds" varchar,
+"cds" varchar,    		--primary key
 "rtype" varchar,
 "sname" varchar,
 "dname" varchar,
@@ -67,7 +76,7 @@ create table fproject.public.sat_scores (
 );
 /*Creating the frpm table with proper columns and datatypes*/
 create table fproject.public.frpm (
- "CDSCode" varchar
+ "CDSCode" varchar              --- primary key
 ,"Academic Year" varchar
 ,"County Code" varchar
 ,"District Code" int
@@ -98,6 +107,14 @@ create table fproject.public.frpm (
 ,"2013-14 CALPADS Fall 1 Certification Status" smallint
 );
 
+
+
+
+
+
+
+
+
 /*
 We want to combine the columns county, district, and school code
 so that we can create a column CDScode which apppears in the other
@@ -119,12 +136,7 @@ Changing column name to match that of the other two tables
 alter table fproject.public.sat_scores
 rename column "cds" to "CDSCode"
 
-/*Creating the calizipincome table which we the populate with the census data*/
-create table fproject.public.calizipincome (
-"Zip" int,
-"median_income" int,
-"mean_income" int
-);
+
 
 /*Investigating for primary key
 
@@ -488,7 +500,7 @@ alter table fproject.public.fmerge add "FullLunch" float
 
 update fproject.public.fmerge f set "FreeLunch" = "Percent (%) Eligible Free (K-12)"
 update fproject.public.fmerge f set "ReducedLunch" = "Percent (%) Eligible FRPM (K-12)" - "Percent (%) Eligible Free (K-12)"
-update fproject.public.fmerge f set "FullLunch" = 1-"Percent (%) Eligible FRPM (K-12)"
+update fproject.public.fmerge f set "FullLunch" = 1 - "Percent (%) Eligible FRPM (K-12)"
 
 /*Making sure free + reduced + full price lunch add up to 100%, since these cover all
 possibilites for lunch cost
