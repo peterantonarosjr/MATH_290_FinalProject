@@ -229,7 +229,7 @@ create type _stats_agg_accum_type AS (
 );
 
 /*
-Here we define the names of the statistical measurements
+Here we define the names of the statistical measurements and their types
 */
 create type _stats_agg_result_type AS (
 	count bigint,
@@ -242,8 +242,9 @@ create type _stats_agg_result_type AS (
 );
 
 /*
+The stats_agg_accumulator function is defining variables that are used to iterate through each row as it calculates the various statistical metrics i.e. moments 1-4, max and the min
 
-
+Calculations performed over the column row by row
 */
 create or replace function _stats_agg_accumulator(_stats_agg_accum_type, double precision)
 returns _stats_agg_accum_type AS '
