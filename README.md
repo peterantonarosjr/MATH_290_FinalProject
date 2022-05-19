@@ -8,11 +8,11 @@
 
 ## Data Source
 
-1. [Information about the FRPM (Student Poverty) Data](https://www.cde.ca.gov/ds/ad/filesspfrpm.asp)\
-Documentation:
-- [FRPM Feature Info](https://www.cde.ca.gov/ds/ad/fssp1314.asp)
-- [Schools Feature Info](https://www.cde.ca.gov/ds/si/ds/fspubschls.asp)
-- [SAT Scores Feature Info](http://wgetsnaps.github.io/cde.ca.gov--ds-sp-ai/ds/sp/ai/reclayoutsat.asp.html)
+1. [Information about the FRPM (Student Poverty) Data](https://www.cde.ca.gov/ds/ad/filesspfrpm.asp)
+   Documentation:
+   - [FRPM Feature Info](https://www.cde.ca.gov/ds/ad/fssp1314.asp)
+   - [Schools Feature Info](https://www.cde.ca.gov/ds/si/ds/fspubschls.asp)
+   - [SAT Scores Feature Info](http://wgetsnaps.github.io/cde.ca.gov--ds-sp-ai/ds/sp/ai/reclayoutsat.asp.html)
 
 2. [US Census Data - California](https://data.census.gov/cedsci/table?q=california%20income&g=0400000US06%248600000&tid=ACSST5Y2020.S1901)
 
