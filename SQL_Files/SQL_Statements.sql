@@ -216,7 +216,7 @@ compute statistical measurements, we would like to describe their function in ou
 */
 
 /*
-
+Here we declare the types for each of the statistical measurements
 */
 create type _stats_agg_accum_type AS (
 	n bigint,
@@ -229,7 +229,7 @@ create type _stats_agg_accum_type AS (
 );
 
 /*
-
+Here we define the names of the statistical measurements
 */
 create type _stats_agg_result_type AS (
 	count bigint,
@@ -242,6 +242,7 @@ create type _stats_agg_result_type AS (
 );
 
 /*
+
 
 */
 create or replace function _stats_agg_accumulator(_stats_agg_accum_type, double precision)
@@ -276,7 +277,7 @@ END;
 language plpgsql;
 
 /*
-
+Dealing with edges cases that could break the math because of division by 0 or null values
 */
 create or replace function _stats_agg_finalizer(_stats_agg_accum_type)
 returns _stats_agg_result_type AS '
@@ -295,7 +296,7 @@ END;
 language plpgsql;
 
 /*
-
+Creates the accumulator with the type and then finalizes the results
 */
 create aggregate stats_agg(double precision) (
 	sfunc = _stats_agg_accumulator,
