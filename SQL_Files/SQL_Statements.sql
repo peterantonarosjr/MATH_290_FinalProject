@@ -443,11 +443,11 @@ Joining the tables to see the resulting data that we have
 Sat_Scores is parent table and then left join frpm on cdscode,
 left join schools on cdscode, inner join calizipincome on zip*/
 select *
-from fproject.public.sat_scores ss
+from fproject.public.sat_scores ss --1254
 left join fproject.public.frpm f
-on ss."CDSCode" = f."CDSCode"
-left join fproject.public.schools s
-on ss."CDSCode" = s."CDSCode"
+on ss."CDSCode" = f."CDSCode"      --1254
+left join fproject.public.schools s 
+on ss."CDSCode" = s."CDSCode"           --1254
 inner join fproject.public.calizipincome c
 on s."Zip" = c."Zip" --359
 
