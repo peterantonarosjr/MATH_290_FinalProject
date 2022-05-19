@@ -210,6 +210,14 @@ select count(*) from(
 -- drop type if exists _stats_agg_result_type;
 -- drop type if exists _stats_agg_accum_type;
 
+/*
+Explanation of what is happening here. Since we are using someone elses code to help us
+compute statistical measurements, we would like to describe their function in our own words
+*/
+
+/*
+
+*/
 create type _stats_agg_accum_type AS (
 	n bigint,
 	min double precision,
@@ -220,6 +228,9 @@ create type _stats_agg_accum_type AS (
 	m4 double precision
 );
 
+/*
+
+*/
 create type _stats_agg_result_type AS (
 	count bigint,
 	min double precision,
@@ -230,6 +241,9 @@ create type _stats_agg_result_type AS (
 	kurtosis double precision
 );
 
+/*
+
+*/
 create or replace function _stats_agg_accumulator(_stats_agg_accum_type, double precision)
 returns _stats_agg_accum_type AS '
 DECLARE
@@ -261,6 +275,9 @@ END;
 '
 language plpgsql;
 
+/*
+
+*/
 create or replace function _stats_agg_finalizer(_stats_agg_accum_type)
 returns _stats_agg_result_type AS '
 BEGIN
@@ -277,6 +294,9 @@ END;
 '
 language plpgsql;
 
+/*
+
+*/
 create aggregate stats_agg(double precision) (
 	sfunc = _stats_agg_accumulator,
 	stype = _stats_agg_accum_type,
@@ -285,7 +305,9 @@ create aggregate stats_agg(double precision) (
 );
 
 
-/*calculates count, min, max, mean, variance, skewness and kurtosis*/
+/*Using our statistical functions to compute:
+count, min, max, mean, variance, skewness and kurtosis
+*/
 
 /*schools column stats*/
 select stats_agg("Latitude") from fproject.public.schools s
